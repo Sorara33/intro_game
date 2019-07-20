@@ -8,4 +8,4 @@ function startGame(){
 
 function stopGame(){
   audioElem.pause();
-}
+} 
