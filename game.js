@@ -6,6 +6,7 @@ var _canStart = true;
 var _nowPlaying = false;
 var _nowSelected = false;
 var time_obj, time_start, time_end;
+var numCorrect = 0, numIncorrect = 0;
 
 window.onload = function(){
   btn1 = document.getElementById('btn1');
@@ -43,6 +44,12 @@ function onStartClicked(){
     refresh();
   }
 }
+
+setInterval(function(){
+  alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：' + numIncorrect + '回');
+  numCorrect = 0;
+  numIncorrect = 0;
+}, 1000*60);
 
 function onSelected(selected_btn){
   if(!_nowSelected){
@@ -100,11 +107,13 @@ function judge(selected_btn){
 function correct(){
   messageBox.innerText = '正解！';
   checkBoxColor(true);
+  numCorrect++;
 }
 
 function incorrect(){
   messageBox.innerText = '残念！';
   checkBoxColor(false);
+  numIncorrect++;
 }
 
 function checkBoxColor(_isCorrect){
