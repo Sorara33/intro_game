@@ -2,15 +2,17 @@ var audioElem;
 var current_song;
 var correct_btn;
 var numSongs = song_files.length;
-console.log('num of songs : ', numSongs);
 var _nowPlaying = false;
 var _nowSelected = false;
+var time_obj, time_start, time_end;
 
 window.onload = function(){
   btn1 = document.getElementById('btn1');
   btn2 = document.getElementById('btn2');
   btn3 = document.getElementById('btn3');
   btn4 = document.getElementById('btn4');
+  messageBox = document.getElementById('message');
+  timeBox = document.getElementById('time');
 }
 
 function writeText(i, str){
@@ -27,18 +29,22 @@ function writeText(i, str){
 
 function onStartClicked(){
   if(!_nowPlaying){
+    time_obj = new Date();
+    time_start = time_obj.getTime();
     _nowPlaying = true;
     _nowSelected = false;
     document.getElementById('message').innerText = '';
     selectSong();
     console.log('play ', song_titles[current_num])
     startPlaying(current_num);
-    refreshBoxColor();
+    refresh();
   }
 }
 
 function onSelected(selected_btn){
   if(!_nowSelected){
+    time_obj = new Date();
+    time_end = time_obj.getTime();
     _nowSelected = true;
     stopPlaying();
     judge(selected_btn);
@@ -84,15 +90,18 @@ function judge(selected_btn){
   } else {
     incorrect();
   }
+  time = time_end - time_start;
+  console.log(time);
+  timeBox.innerText = String(time/1000) + '秒';
 }
 
 function correct(){
-  document.getElementById('message').innerText = '正解！';
+  messageBox.innerText = '正解！';
   checkBoxColor(true);
 }
 
 function incorrect(){
-  document.getElementById('message').innerText = '残念！';
+  messageBox.innerText = '残念！';
   checkBoxColor(false);
 }
 
@@ -114,11 +123,13 @@ function checkBoxColor(_isCorrect){
   }
 }
 
-function refreshBoxColor(){
+function refresh(){
   btn1.style.backgroundColor = 'white';  btn1.style.color = '#67c5ff';
   btn2.style.backgroundColor = 'white';  btn2.style.color = '#67c5ff';
   btn3.style.backgroundColor = 'white';  btn3.style.color = '#67c5ff';
   btn4.style.backgroundColor = 'white';  btn4.style.color = '#67c5ff';
+  messageBox.innerText = '';
+  timeBox.innerText = '';
 }
 
 function getRandom(min, max){
