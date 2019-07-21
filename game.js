@@ -89,3 +89,15 @@ function incorrect(){
 function getRandom(min, max){
   return Math.floor(Math.random()*(max - min + 1) + min);
 }
+
+document.addEventListener('keydown', (event) => {
+  var keyName = event.key;
+  switch(keyName){
+    case 'f' : onSelected(1); break;
+    case 'v' : onSelected(3); break;
+    case 'n' : onSelected(4); break;
+    case 'j' : onSelected(2); break;
+    default : onStartClicked();
+  }
+  console.log(`keydown:${keyName}`);
+});
