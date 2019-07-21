@@ -1,5 +1,5 @@
 var audioElem;
-var current_song = 'sample.mp3';
+var current_song;
 var correct_btn;
 var numSongs = song_files.length;
 console.log('num of songs : ', numSongs);
@@ -24,6 +24,7 @@ function onStartClicked(){
     _nowSelected = false;
     document.getElementById('message').innerText = '';
     selectSong();
+    console.log('play ', song_titles[current_num])
     startPlaying(current_num);
   }
 }
