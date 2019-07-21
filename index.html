@@ -2,22 +2,27 @@
 <head>
   <title>アイマスイントロ（笑）ゲーム</title>
   <script type="text/javascript" src="game.js"></script>
+  <script type="text/javascript" src="song_data.js".js"></script>
   <link rel='stylesheet' type='text/css' href='style.css'>
 </head>
 <body>
   <h1 style="text-align:center">ボタンを押してゲームスタート！</h1>
-  <center><a href='#' class='btn-square' onclick="startGame();">スタート</a>
-  <a href='#' class='btn-square' onclick='stopGame();'>ストップ</a></center>
+  <center>
+    <a href='#' class='btn-square' onclick="onStartClicked();">スタート</a>
+    <!--<a href='#' class='btn-square' onclick='();'>ストップ</a>-->
+  </center>
   <br/></br>
   <section>
     <center>
-      <a href='#' class='btn-flat-border' onclick=''>曲名1</a>
-      <a href='#' class='btn-flat-border' onclick="">曲名2</a>
+      <a href='#' id='btn1' class='btn-flat-border' onclick='onSelected(1);'>曲名1</a>
+      <a href='#' id='btn2' class='btn-flat-border' onclick="onSelected(2);">曲名2</a>
     </center>
       
     <center>
-      <a href='#' class='btn-flat-border' onclick=''>曲名3</a>
-      <a href='#' class='btn-flat-border' onclick="">曲名4</a>
+      <a href='#' id='btn3' class='btn-flat-border' onclick='onSelected(3);'>曲名3</a>
+      <a href='#' id='btn4' class='btn-flat-border' onclick="onSelected(4);">曲名4</a>
     </center>
   </section>
+
+  <p id='message'>message</a>
 </body>
