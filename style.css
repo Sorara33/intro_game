@@ -15,8 +15,11 @@
 }
 .btn-flat-border {
     display: inline-block;
+    height: 40px;
+    width: 300px;
     margin: 0.4em;
     padding: 0.3em 1em;
+    text-align: center;
     text-decoration: none;
     color: #67c5ff;
     border: solid 2px #67c5ff;
@@ -27,4 +30,7 @@
     background: #67c5ff;
     color: white;
     animation-duration: 0ms;
+}
+.message {
+    text-align: center;
 }
