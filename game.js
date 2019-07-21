@@ -6,15 +6,22 @@ console.log('num of songs : ', numSongs);
 var _nowPlaying = false;
 var _nowSelected = false;
 
+window.onload = function(){
+  btn1 = document.getElementById('btn1');
+  btn2 = document.getElementById('btn2');
+  btn3 = document.getElementById('btn3');
+  btn4 = document.getElementById('btn4');
+}
+
 function writeText(i, str){
   if(i == 1){
-    document.getElementById('btn1').innerText = str;
+    btn1.innerText = str;
   } else if (i == 2){
-    document.getElementById('btn2').innerText = str;
+    btn2.innerText = str;
   } else if (i == 3){
-    document.getElementById('btn3').innerText = str;
+    btn3.innerText = str;
   } else if (i == 4){
-    document.getElementById('btn4').innerText = str;
+    btn4.innerText = str;
   }
 }
 
@@ -26,6 +33,7 @@ function onStartClicked(){
     selectSong();
     console.log('play ', song_titles[current_num])
     startPlaying(current_num);
+    refreshBoxColor();
   }
 }
 
@@ -80,10 +88,37 @@ function judge(selected_btn){
 
 function correct(){
   document.getElementById('message').innerText = '正解！';
+  checkBoxColor(true);
 }
 
 function incorrect(){
   document.getElementById('message').innerText = '残念！';
+  checkBoxColor(false);
+}
+
+function checkBoxColor(_isCorrect){
+  if(_isCorrect){
+    switch(correct_btn){
+      case 1 : btn1.style.backgroundColor = 'lightgreen';  btn1.style.color = 'white'; break;
+      case 2 : btn2.style.backgroundColor = 'lightgreen';  btn2.style.color = 'white'; break;
+      case 3 : btn3.style.backgroundColor = 'lightgreen';  btn3.style.color = 'white'; break;
+      case 4 : btn4.style.backgroundColor = 'lightgreen';  btn4.style.color = 'white'; break;
+    }
+  } else {
+    switch(correct_btn){
+      case 1 : btn1.style.backgroundColor = 'red';  btn1.style.color = 'white'; break;
+      case 2 : btn2.style.backgroundColor = 'red';  btn2.style.color = 'white'; break;
+      case 3 : btn3.style.backgroundColor = 'red';  btn3.style.color = 'white'; break;
+      case 4 : btn4.style.backgroundColor = 'red';  btn4.style.color = 'white'; break;
+    }
+  }
+}
+
+function refreshBoxColor(){
+  btn1.style.backgroundColor = 'white';  btn1.style.color = '#67c5ff';
+  btn2.style.backgroundColor = 'white';  btn2.style.color = '#67c5ff';
+  btn3.style.backgroundColor = 'white';  btn3.style.color = '#67c5ff';
+  btn4.style.backgroundColor = 'white';  btn4.style.color = '#67c5ff';
 }
 
 function getRandom(min, max){
