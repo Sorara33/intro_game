@@ -1,5 +1,5 @@
-var audioElem;
-var current_song;
+var audioElem = new Audio();
+var current_song, current_num;
 var correct_btn;
 var numSongs = song_files.length;
 var _canStart = true;
@@ -41,13 +41,14 @@ function onStartClicked(){
     document.getElementById('message').innerText = '';
     selectSong();
     console.log('play ', song_titles[current_num])
-    startPlaying(current_num);
+    startPlaying();
     refresh();
   }
 }
 
 setInterval(function(){
-  alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：' + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect) + '秒';
+  alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：'
+   + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect + '秒');
   numCorrect = 0;
   numIncorrect = 0;
   sumCorrectTime = 0;
@@ -63,12 +64,20 @@ function onSelected(selected_btn){
   }
 }
 
-function startPlaying(file_num){
-  audioElem = new Audio();
-  audioElem.src = song_files[file_num];
-  audioElem.play();
-  console.log(song_titles[file_num]);
+function startPlaying(){
+  audioElem.src = song_files[current_num];
+  audioElem.load();
+  // console.log(song_titles[current_num]);
 }
+audioElem.addEventListener('loadedmetadata',function(e) {
+  // console.log('audio duration : ' + audioElem.duration);
+  audio_duration = parseInt(audioElem.duration)-20;
+  randomNum = getRandom(0, audio_duration);
+  //audioElem.src = song_files[current_num] + '#t=' + String(randomNum) + ',' + String(audio_duration);
+  //console.log(song_files[current_num] + '#t=' + String(randomNum) + ',' + String(audio_duration));
+  audioElem.currentTime = randomNum;
+  audioElem.play();
+});
 
 function stopPlaying(){
   audioElem.pause();
@@ -92,7 +101,7 @@ function selectSong(){
       writeText(i, song_titles[randomNum]);
     }
   }
-  console.log(alreadyUsedNum);
+  // console.log(alreadyUsedNum);
 }
 
 function judge(selected_btn){
@@ -102,7 +111,7 @@ function judge(selected_btn){
     incorrect();
   }
   time = time_end - time_start;
-  console.log(time);
+  // console.log(time);
   timeBox.innerText = String(time/1000) + '秒';
   sumCorrectTime += time;
 }
@@ -159,5 +168,5 @@ document.addEventListener('keydown', (event) => {
     case 'j' : onSelected(2); break;
     default : onStartClicked();
   }
-  console.log(`keydown:${keyName}`);
+  // console.log(`keydown:${keyName}`);
 });
