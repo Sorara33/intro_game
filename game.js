@@ -21,7 +21,8 @@ function writeText(i, str){
 function onStartClicked(){
   if(!_nowPlaying){
     _nowPlaying = true;
-    next();
+    _nowSelected = false;
+    document.getElementById('message').innerText = '';
     selectSong();
     startPlaying(current_num);
   }
@@ -82,12 +83,6 @@ function correct(){
 
 function incorrect(){
   document.getElementById('message').innerText = '残念！';
-}
-
-function next(){
-  document.getElementById('message').innerText = '';
-  _nowPlaying = false;
-  _nowSelected = false;
 }
 
 function getRandom(min, max){
