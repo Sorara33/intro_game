@@ -16,6 +16,7 @@
 .btn-flat-border {
     /*position: absolute;*/
     display: inline-block;
+    vertical-align: top;
     height: 50px;
     width: 300px;
     margin: 10px;
@@ -34,4 +35,9 @@
 .message {
     text-align: center;
     height: 40px;
+}
+.info {
+    text-align: center;
+    margin: 0px 400px;
+    background: yellow;
 }
