@@ -7,6 +7,7 @@ var _nowPlaying = false;
 var _nowSelected = false;
 var time_obj, time_start, time_end;
 var numCorrect = 0, numIncorrect = 0;
+var sumCorrectTime = 0;
 
 window.onload = function(){
   btn1 = document.getElementById('btn1');
@@ -46,9 +47,10 @@ function onStartClicked(){
 }
 
 setInterval(function(){
-  alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：' + numIncorrect + '回');
+  alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：' + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect) + '秒';
   numCorrect = 0;
   numIncorrect = 0;
+  sumCorrectTime = 0;
 }, 1000*60);
 
 function onSelected(selected_btn){
@@ -102,6 +104,7 @@ function judge(selected_btn){
   time = time_end - time_start;
   console.log(time);
   timeBox.innerText = String(time/1000) + '秒';
+  sumCorrectTime += time;
 }
 
 function correct(){
