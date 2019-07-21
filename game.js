@@ -2,6 +2,7 @@ var audioElem;
 var current_song;
 var correct_btn;
 var numSongs = song_files.length;
+var _canStart = true;
 var _nowPlaying = false;
 var _nowSelected = false;
 var time_obj, time_start, time_end;
@@ -28,9 +29,11 @@ function writeText(i, str){
 }
 
 function onStartClicked(){
-  if(!_nowPlaying){
+  if(_canStart){
     time_obj = new Date();
     time_start = time_obj.getTime();
+    _canStart = false;
+    if(_nowPlaying) stopPlaying();
     _nowPlaying = true;
     _nowSelected = false;
     document.getElementById('message').innerText = '';
@@ -46,9 +49,8 @@ function onSelected(selected_btn){
     time_obj = new Date();
     time_end = time_obj.getTime();
     _nowSelected = true;
-    stopPlaying();
     judge(selected_btn);
-    _nowPlaying = false;
+    _canStart = true;
   }
 }
 
