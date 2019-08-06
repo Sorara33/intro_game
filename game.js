@@ -8,6 +8,8 @@ var _nowSelected = false;
 var time_obj, time_start, time_end;
 var numCorrect = 0, numIncorrect = 0;
 var sumCorrectTime = 0;
+var globalNumPlayed = 0;
+
 
 window.onload = function(){
   btn1 = document.getElementById('btn1');
@@ -32,8 +34,6 @@ function writeText(i, str){
 
 function onStartClicked(){
   if(_canStart){
-    time_obj = new Date();
-    time_start = time_obj.getTime();
     _canStart = false;
     if(_nowPlaying) stopPlaying();
     _nowPlaying = true;
@@ -46,6 +46,14 @@ function onStartClicked(){
   }
 }
 
+function showAlert(){
+  alert('10回中の正解数：' + numCorrect + '回\n10回中の不正解数：'
+  + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect + '秒');
+  numCorrect = 0;
+  numIncorrect = 0;
+  sumCorrectTime = 0;
+}
+/*
 setInterval(function(){
   alert('1分間での正解数：' + numCorrect + '回\n1分間での不正解数：'
    + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect + '秒');
@@ -53,13 +61,16 @@ setInterval(function(){
   numIncorrect = 0;
   sumCorrectTime = 0;
 }, 1000*60);
+*/
 
 function onSelected(selected_btn){
   if(!_nowSelected){
-    time_obj = new Date();
-    time_end = time_obj.getTime();
+    time_end = audioElem.currentTime;
     _nowSelected = true;
     judge(selected_btn);
+    globalNumPlayed++;
+    if (globalNumPlayed % 10 == 0)
+      showAlert();
     _canStart = true;
   }
 }
@@ -71,12 +82,13 @@ function startPlaying(){
 }
 audioElem.addEventListener('loadedmetadata',function(e) {
   // console.log('audio duration : ' + audioElem.duration);
-  audio_duration = parseInt(audioElem.duration)-20;
+  audio_duration = parseInt(audioElem.duration)-20; // あまり終盤だとすぐに終わってしまうので。
   randomNum = getRandom(0, audio_duration);
   //audioElem.src = song_files[current_num] + '#t=' + String(randomNum) + ',' + String(audio_duration);
   //console.log(song_files[current_num] + '#t=' + String(randomNum) + ',' + String(audio_duration));
   audioElem.currentTime = randomNum;
   audioElem.play();
+  time_start = audioElem.currentTime;
 });
 
 function stopPlaying(){
@@ -112,7 +124,7 @@ function judge(selected_btn){
   }
   time = time_end - time_start;
   // console.log(time);
-  timeBox.innerText = String(time/1000) + '秒';
+  timeBox.innerText = String(time) + '秒';
   sumCorrectTime += time;
 }
 
