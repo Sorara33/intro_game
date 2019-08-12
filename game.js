@@ -9,6 +9,7 @@ var time_obj, time_start, time_end;
 var numCorrect = 0, numIncorrect = 0;
 var sumCorrectTime = 0;
 var globalNumPlayed = 0;
+var table = document.createElement("table");
 
 
 window.onload = function(){
@@ -18,6 +19,7 @@ window.onload = function(){
   btn4 = document.getElementById('btn4');
   messageBox = document.getElementById('message');
   timeBox = document.getElementById('time');
+  showBattleTable();
 }
 
 function writeText(i, str){
@@ -48,7 +50,7 @@ function onStartClicked(){
 
 function showAlert(){
   alert('10回中の正解数：' + numCorrect + '回\n10回中の不正解数：'
-  + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/1000/numCorrect + '秒');
+  + numIncorrect + '回\n\n正解時の平均タイム：' + sumCorrectTime/numCorrect + '秒');
   numCorrect = 0;
   numIncorrect = 0;
   sumCorrectTime = 0;
@@ -182,3 +184,24 @@ document.addEventListener('keydown', (event) => {
   }
   // console.log(`keydown:${keyName}`);
 });
+
+
+
+
+function showBattleTable(){
+  // テキストファイルからデータを読み込む
+  var fileName = 'battledata.txt';
+  var battleDataObj = new XMLHttpRequest();
+  battleDataObj.open('GET',fileName, true);
+  battleDataObj.onreadystatechange = function(){
+    if ( (battleDataObj.readyState == 4) && (battleDataObj.status == 200) ){
+       console.log(httpObj.responseText);
+       console.log('tt');
+    }else{
+      console.log('ff');
+    }
+ }
+
+  // 表を作ってデータを表示
+
+}
